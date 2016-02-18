@@ -1,4 +1,4 @@
-﻿@model BookStoreDemo1.Models.Book
+﻿@model BookStore.Models.Book
 
 @{
     ViewBag.Title = "Edit";
@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+   @* @Html.AntiForgeryToken() *@
     
     <div class="form-horizontal">
         <h4>Book</h4>

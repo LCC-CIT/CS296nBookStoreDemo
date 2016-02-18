@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using BookStoreDemo1.Models;
+using BookStore.Models;
 
-namespace BookStoreDemo1.Controllers
+namespace BookStore.Controllers
 {
     public class BooksController : Controller
     {
@@ -140,7 +140,7 @@ namespace BookStoreDemo1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult Edit([Bind(Include = "BookID, StackID, Title,Author,Price,ISBN")] Book book)
         {
@@ -171,7 +171,7 @@ namespace BookStoreDemo1.Controllers
 
         // POST: /Books/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {

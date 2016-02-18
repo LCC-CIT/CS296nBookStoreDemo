@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace BookStoreDemo1.Models
+namespace BookStore.Models
 {
 
 

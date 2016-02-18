@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace BookStoreDemo1.Models
+namespace BookStore.Models
 {
     public class BookStoreDemoContext : DbContext
     {
@@ -19,9 +19,9 @@ namespace BookStoreDemo1.Models
         {
         }
 
-        public System.Data.Entity.DbSet<BookStoreDemo1.Models.Stack> Stacks { get; set; }
+        public System.Data.Entity.DbSet<BookStore.Models.Stack> Stacks { get; set; }
 
-        public System.Data.Entity.DbSet<BookStoreDemo1.Models.Book> Books { get; set; }
+        public System.Data.Entity.DbSet<BookStore.Models.Book> Books { get; set; }
     
     }
 }

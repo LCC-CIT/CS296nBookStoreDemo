@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BookStoreDemo1.Models
+namespace BookStore.Models
 {
     public class Store
     {

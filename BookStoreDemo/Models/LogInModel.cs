@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace BookStoreDemo1.Models
+namespace BookStore.Models
 {
     public class LogInModel
     {
@@ -17,7 +17,7 @@ namespace BookStoreDemo1.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [HiddenInput]
+        [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; }
     }
 }

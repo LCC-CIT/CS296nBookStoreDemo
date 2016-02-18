@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookStoreDemo1.Models;
+using BookStore.Models;
 
-namespace BookStoreDemo1.Controllers
+namespace BookStore.Controllers
 {
     public class HomeController : Controller
     {

@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace BookStoreDemo1.Models
+namespace BookStore.Models
 {
     public class BookStoreDbInitializer : DropCreateDatabaseAlways<BookStoreDemoContext>
     // public class BookStoreDbInitializer : DropCreateDatabaseIfModelChanges<BookStoreDemoContext>    
