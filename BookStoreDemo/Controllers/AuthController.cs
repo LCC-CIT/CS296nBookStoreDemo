@@ -1,4 +1,7 @@
 ﻿using BookStore.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,8 @@ namespace BookStore.Controllers
 {
     public class AuthController : Controller
     {
+        UserManager<AppUser> userManager = new UserManager<AppUser>(
+               new UserStore<AppUser>(new BookStoreDemoContext()));
         //
         // GET: /Auth/Login/
         public ActionResult LogIn(string returnUrl)
@@ -30,27 +35,71 @@ namespace BookStore.Controllers
                 return View();
             }
 
-            // Don't do this in production!
-            if (model.Email == "admin@admin.com" && model.Password == "password")
+            var user =  userManager.Find(model.Email, model.Password);
+
+            if (user != null)
             {
-                var identity = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.Name, "Brian"),
-                new Claim(ClaimTypes.Email, "birdb@lanecc.edu"),
-                new Claim(ClaimTypes.Country, "USA")
-            },
-                    "ApplicationCookie");
+                var identity = userManager.CreateIdentity(
+                    user, DefaultAuthenticationTypes.ApplicationCookie);
 
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
-
-                authManager.SignIn(identity);
+                GetAuthenticationManager().SignIn(identity);
 
                 return Redirect(GetRedirectUrl(model.ReturnUrl));
             }
 
-            // user authN failed
+            // user authentication failed
             ModelState.AddModelError("", "Invalid email or password");
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var user = new AppUser
+            {
+                UserName = model.Email,
+                NickName = model.NickName
+            };
+
+            var result = userManager.Create(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                SignIn(user);
+                return RedirectToAction("index", "home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+
+            return View();
+        }
+
+        private void SignIn(AppUser user)
+        {
+            var identity = userManager.CreateIdentity(
+                user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            GetAuthenticationManager().SignIn(identity);
+        }
+
+        private IAuthenticationManager GetAuthenticationManager()
+        {
+            var ctx = Request.GetOwinContext();
+            return ctx.Authentication;
         }
 
         private string GetRedirectUrl(string returnUrl)
@@ -70,6 +119,15 @@ namespace BookStore.Controllers
 
             authManager.SignOut("ApplicationCookie");
             return RedirectToAction("index", "home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && userManager != null)
+            {
+                userManager.Dispose();
+            }
+            base.Dispose(disposing);
         }
 	}
 }
