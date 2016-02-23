@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookStore.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BookStore.Controllers
 {
@@ -236,6 +237,21 @@ namespace BookStore.Controllers
             else
                 return View("Index", bookVMs);
 
+        }
+
+
+        public ActionResult Buy(int BookID)
+        {
+            // TODO: Check to see if there's alreay a cart for this user
+            Cart cart = new Cart();
+            Book book = db.Books.Find(BookID);
+            AppUser customer = db.Users.Find(User.Identity.GetUserId());
+            cart.Customer = customer;
+            cart.Books.Add(book);
+
+            db.Carts.Add(cart);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Carts");
         }
 
         protected override void Dispose(bool disposing)
