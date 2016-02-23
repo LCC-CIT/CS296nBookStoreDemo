@@ -20,9 +20,9 @@ namespace BookStore.Models
         {
         }
 
-        public System.Data.Entity.DbSet<BookStore.Models.Stack> Stacks { get; set; }
-
-        public System.Data.Entity.DbSet<BookStore.Models.Book> Books { get; set; }
+        public DbSet<Stack> Stacks { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Cart> Carts { get; set; }
     
     }
 }

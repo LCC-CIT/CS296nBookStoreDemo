@@ -152,6 +152,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookStoreDbInitializer.cs" />
     <Compile Include="Models\BookStoreDemoContext.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\Stack.cs" />
