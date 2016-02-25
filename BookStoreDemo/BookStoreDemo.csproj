@@ -228,6 +228,8 @@
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Auth\CreateRole.cshtml" />
     <Content Include="Views\Auth\Index.cshtml" />
+    <Content Include="Views\Auth\EditRole.cshtml" />
+    <Content Include="Views\Auth\ManageUserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
