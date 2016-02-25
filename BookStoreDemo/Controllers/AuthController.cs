@@ -11,10 +11,20 @@ using System.Web.Mvc;
 
 namespace BookStore.Controllers
 {
+
     public class AuthController : Controller
     {
+        private BookStoreDemoContext db = new BookStoreDemoContext();
+
         UserManager<AppUser> userManager = new UserManager<AppUser>(
                new UserStore<AppUser>(new BookStoreDemoContext()));
+
+        public ActionResult Index()
+        {
+            var roles = db.Roles.ToList();
+            return View(roles);
+        }
+        
         //
         // GET: /Auth/Login/
         public ActionResult LogIn(string returnUrl)
@@ -128,6 +138,33 @@ namespace BookStore.Controllers
                 userManager.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: /Roles/Create
+        public ActionResult CreateRole()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Roles/Create
+        [HttpPost]
+        public ActionResult CreateRole(FormCollection collection)
+        {
+            try
+            {
+                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
+                {
+                    Name = collection["RoleName"]
+                });
+                db.SaveChanges();
+                ViewBag.ResultMessage = "Role created successfully !";
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 	}
 }
