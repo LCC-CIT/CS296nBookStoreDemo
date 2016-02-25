@@ -142,6 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\StacksController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
@@ -152,6 +153,7 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookStoreDbInitializer.cs" />
     <Compile Include="Models\BookStoreDemoContext.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\Stack.cs" />
@@ -219,6 +221,15 @@
     <Content Include="Views\Books\PartialBookListHeader.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\Register.cshtml" />
+    <Content Include="Views\Carts\Create.cshtml" />
+    <Content Include="Views\Carts\Delete.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Edit.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Auth\CreateRole.cshtml" />
+    <Content Include="Views\Auth\Index.cshtml" />
+    <Content Include="Views\Auth\EditRole.cshtml" />
+    <Content Include="Views\Auth\ManageUserRoles.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
