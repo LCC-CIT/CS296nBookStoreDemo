@@ -14,7 +14,10 @@
     else
     {
         <a href="@Url.Action("login", "auth")">Log In</a>
+        <a href="@Url.Action("Register", "auth")">Register</a>
     }
+
+    @ViewBag.ResultMessage
 </p>
 @Html.ActionLink("Search for a book by title", "Search", "Books")
 <br />

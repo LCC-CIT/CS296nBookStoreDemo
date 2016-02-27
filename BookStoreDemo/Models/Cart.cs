@@ -7,8 +7,14 @@ namespace BookStore.Models
 {
     public class Cart
     {
+        private List<Book> books = new List<Book>();
+        private AppUser customer = new AppUser();
+
         public int CartID { get; set; }
-        public Book BookToBuy { get; set; }
-        public AppUser Customer { get; set; }
+        public List<Book> Books {get { return books;}}
+        public AppUser Customer { 
+            get { return customer; }
+            set { customer = value; }
+        }
     }
 }

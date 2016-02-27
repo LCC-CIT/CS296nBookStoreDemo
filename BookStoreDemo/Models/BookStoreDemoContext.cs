@@ -16,13 +16,17 @@ namespace BookStore.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
+
         public BookStoreDemoContext() : base("name=BookStoreDemoContext")
         {
         }
+        
 
         public DbSet<Stack> Stacks { get; set; }
+
         public DbSet<Book> Books { get; set; }
-        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<Models.Cart> Carts { get; set; }
     
     }
 }
