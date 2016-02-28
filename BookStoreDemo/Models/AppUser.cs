@@ -9,5 +9,6 @@ namespace BookStore.Models
     public class AppUser : IdentityUser
     {
         public string NickName { get; set; }
+       // public virtual Cart BookCart { get; set; }
     }
 }

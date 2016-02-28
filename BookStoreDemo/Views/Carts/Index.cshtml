@@ -28,7 +28,7 @@
         <tr>
             <td>
                 <!-- TODO really display this right, this is a hack-->
-                @Html.DisplayFor(modelItem => item.Books[0].Title)
+                @Html.DisplayFor(modelItem => item.Books.ElementAt(0).Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Customer.UserName)

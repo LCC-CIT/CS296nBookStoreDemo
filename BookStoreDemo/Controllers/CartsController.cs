@@ -113,6 +113,9 @@ namespace BookStore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Cart cart = db.Carts.Find(id);
+                /*(from c in db.Carts.Include("Books").Include("AppUsers")
+                         where c.CartID == id
+                         select c).FirstOrDefault(); */
             db.Carts.Remove(cart);
             db.SaveChanges();
             return RedirectToAction("Index");
