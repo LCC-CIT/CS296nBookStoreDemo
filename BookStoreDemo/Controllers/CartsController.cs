@@ -20,7 +20,7 @@ namespace BookStore.Controllers
             // TODO: Change this to include
            // db.Books.Load();
            // db.Users.Load();
-            return View(db.Carts.Include("Books").Include(c => c.Customer).ToList());
+            return View(db.Carts.Include(c => c.Customer).ToList());
         }
 
         // GET: /Carts/Details/5
@@ -30,7 +30,9 @@ namespace BookStore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cart cart = db.Carts.Find(id);
+            Cart cart = (from c in db.Carts.Include(c => c.Customer).Include(b => b.Books)
+                         where c.CartID == id
+                         select c).FirstOrDefault();
             if (cart == null)
             {
                 return HttpNotFound();
