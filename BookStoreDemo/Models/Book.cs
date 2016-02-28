@@ -13,5 +13,6 @@ namespace BookStore.Models
         public string Author { get; set; }
         public decimal? Price { get; set; }
         public string ISBN { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

@@ -240,11 +240,11 @@ namespace BookStore.Controllers
         }
 
 
-        public ActionResult Buy(int BookID)
+        public ActionResult Buy(int id)
         {
             // TODO: Check to see if there's alreay a cart for this user
             Cart cart = new Cart();
-            Book book = db.Books.Find(BookID);
+            Book book = db.Books.Find(id);
             AppUser customer = db.Users.Find(User.Identity.GetUserId());
             cart.Customer = customer;
             cart.Books.Add(book);

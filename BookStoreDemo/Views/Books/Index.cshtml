@@ -19,10 +19,11 @@
         <!-- table content without links in partial view-->
         @Html.Partial("PartialBookListContent", item)
         <td>
+            @Html.ActionLink("Buy", "Buy", new { id = item.BookID }) |
             @Html.ActionLink("Edit", "Edit", new { id = item.BookID }) |
             @Html.ActionLink("Details", "Details", new { id = item.BookID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.BookID })
-        </td>
+       </td>
 
     </tr>
 }
