@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BookStore.Models;
 using Microsoft.AspNet.Identity;
@@ -95,7 +93,7 @@ namespace BookStore.Controllers
                                where s.StackID == StackLocations
                                select s).FirstOrDefault();
 
-                //TODO: Modify the view allow entering a new location
+                //TODO: Modify the view to allow entering a new location
                 if (stack == null)
                 {
                     stack = new Stack() { Location = bookVM.StackItem.Location };
@@ -216,27 +214,12 @@ namespace BookStore.Controllers
                 });
             }
 
-            /*
-            List<Book> books = from b in db.Books
-                    join s in db.Stacks on b.StackID equals s.StackID
-                    where b.Title.Contains(searchTerm)
-                    select new List<BookViewModel>
-                    {
-                        BookID = b.BookID,
-                        Author = b.Author,
-                        ISBN = b.ISBN,
-                        Price = b.Price,
-                        Title = b.Title,
-                        StackItem = s
-                    }; */
-
             // if there's just one book, display it
             if (bookVMs.Count == 1)
                 return View("Details", bookVMs[0]);
             // if there is more than one book display the list of books
             else
                 return View("Index", bookVMs);
-
         }
 
         [Authorize]
@@ -251,12 +234,12 @@ namespace BookStore.Controllers
             {
                 cart = new Cart();
                 cart.Customer = customer;
+                db.Carts.Add(cart);
             }
 
             Book book = db.Books.Find(id);
             cart.Books.Add(book);
 
-            db.Carts.Add(cart);
             db.SaveChanges();
             return RedirectToAction("Index", "Carts");
         }

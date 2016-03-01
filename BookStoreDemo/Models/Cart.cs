@@ -10,7 +10,7 @@ namespace BookStore.Models
         private List<Book> books = new List<Book>();
 
         public int CartID { get; set; }
-       public List<Book> Books { get { return books; } }
-        public virtual AppUser Customer { get; set; }
+        public List<Book> Books {get { return books;}}
+        public AppUser Customer { get; set; }
     }
 }

@@ -16,7 +16,30 @@
         <h4>Cart</h4>
     	<hr />
         <dl class="dl-horizontal">
+            <dd>
+                @Html.DisplayFor(modelItem => Model.Customer.UserName)
+            </dd>
         </dl>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Title
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Books)
+            {
+                <tr>
+                    <td>
+                        <!-- TODO really display this right, this is a hack-->
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                </tr>
+            }
+        </table>
+        <br />
+
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.CartID }) |
