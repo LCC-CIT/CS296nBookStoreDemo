@@ -10,7 +10,7 @@ namespace BookStore
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new BookStoreDbInitializer());
+            // Database.SetInitializer(new BookStoreDbInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
