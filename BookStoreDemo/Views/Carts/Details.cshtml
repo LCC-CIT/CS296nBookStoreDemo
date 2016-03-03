@@ -43,7 +43,9 @@
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.CartID }) |
-        @Html.ActionLink("Back to List", "Index")
+        <!-- TODO: Only show "back to list of Carts" for admins-->
+        @Html.ActionLink("Back to List", "Index") |
+        @Html.ActionLink("Home", "Index", "Home")
     </p>
 </body>
 </html>

@@ -227,7 +227,7 @@ namespace BookStore.Controllers
         {
             // Check to see if there's alreay a cart for this user
             AppUser customer = db.Users.Find(User.Identity.GetUserId());
-            Cart cart = (from c in db.Carts
+            Cart cart = (from c in db.Carts.Include("Books")
                          where c.Customer.Id == customer.Id
                          select c).FirstOrDefault();
             if (cart == null)
@@ -237,11 +237,16 @@ namespace BookStore.Controllers
                 db.Carts.Add(cart);
             }
 
-            Book book = db.Books.Find(id);
-            cart.Books.Add(book);
-
+            // TODO: Accomodate purchasing multiple copies of one book
+            // Currently it causes a non-unique FK exception
+            Book book;
+            if (cart.Books.Find(b => b.BookID == id) == null)
+            {
+                book = db.Books.Find(id);
+                cart.Books.Add(book);
+            }
             db.SaveChanges();
-            return RedirectToAction("Index", "Carts");
+            return RedirectToAction("Details", "Carts", new { id = cart.CartID } );
         }
 
         protected override void Dispose(bool disposing)
