@@ -32,7 +32,7 @@ namespace BookStore.Migrations
 
             // Add a user
             UserManager<AppUser> userManager = new UserManager<AppUser>(
-              new UserStore<AppUser>(new BookStoreDemoContext()));
+              new UserStore<AppUser>(context));
 
             var user = new AppUser{UserName = "birdb@lanecc.edu", NickName = "Brian" };
             var result = userManager.Create(user, "password");
