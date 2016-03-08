@@ -1,10 +1,9 @@
 namespace BookStore.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<BookStore.Models.BookStoreDemoContext>
     {
@@ -16,19 +15,7 @@ namespace BookStore.Migrations
 
         protected override void Seed(BookStore.Models.BookStoreDemoContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-
+            // Create Book and Stack entities
             Book mobyDick =
                 new Book { Title = "Moby Dick", Author = "Herman Melville", Price = 11.99m };
             Book readyPlayerOne =
@@ -42,6 +29,21 @@ namespace BookStore.Migrations
 
             context.Books.AddOrUpdate(b => b.Title, mobyDick, readyPlayerOne, grapesOfWrath, incorrigibleChildren);
             context.Stacks.AddOrUpdate(s => s.Location, stack1, stack2);
-         }
+
+            // Add a user
+            UserManager<AppUser> userManager = new UserManager<AppUser>(
+              new UserStore<AppUser>(context));
+
+            var user = new AppUser{UserName = "birdb@lanecc.edu", NickName = "Brian" };
+            var result = userManager.Create(user, "password");
+
+            // Add a role
+            context.Roles.Add(new IdentityRole() { Name = "Admin" });
+            context.SaveChanges();
+
+            // Add role to user
+            userManager.AddToRole(user.Id, "Admin");
+
+        }
     }
 }

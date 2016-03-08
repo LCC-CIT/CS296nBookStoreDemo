@@ -15,6 +15,7 @@ namespace BookStore.Controllers
         private BookStoreDemoContext db = new BookStoreDemoContext();
 
         // GET: /Carts/
+        [Authorize(Roles="Admin")]
         public ActionResult Index()
         {
             // TODO: Change this to include
@@ -24,6 +25,7 @@ namespace BookStore.Controllers
         }
 
         // GET: /Carts/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
