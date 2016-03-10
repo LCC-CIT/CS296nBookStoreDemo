@@ -34,11 +34,12 @@ namespace BookStore.DAL
             return db.SaveChanges();
         }
 
-        public int DeleteStackById(int id)
+        public Stack DeleteStackById(int id)
         {
             Stack stack = GetStackById(id);
             db.Stacks.Remove(stack);
-            return db.SaveChanges();
+            db.SaveChanges();
+            return stack;
         }
 
 

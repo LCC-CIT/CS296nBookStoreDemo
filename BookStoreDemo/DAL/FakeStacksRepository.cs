@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,34 +8,58 @@ namespace BookStore.DAL
 {
     public class FakeStacksRepository : IStacksRepository
     {
-        public Models.Stack AddStack(Models.Stack stack)
+        private List<Stack> stacks;
+        private int maxId = 0;
+
+        public FakeStacksRepository()
         {
-            throw new NotImplementedException();
+            stacks = new List<Stack>();
         }
 
-        public int DeleteStackById(int id)
+        public FakeStacksRepository(List<Stack> s)
         {
-            throw new NotImplementedException();
+            stacks = s;
+        }
+
+        public Stack AddStack(Stack stack)
+        {
+            stack.StackID = ++maxId;
+            stacks.Add(stack);
+            return stack;
+        }
+
+        public Stack DeleteStackById(int id)
+        {
+            Stack stack = GetStackById(id);
+            stacks.Remove(stack);
+            return stack;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            // nothing to do;
         }
 
         public List<Models.Stack> GetAllStacks()
         {
-            throw new NotImplementedException();
+            return stacks;
         }
 
         public Models.Stack GetStackById(int? id)
         {
-            throw new NotImplementedException();
+            return stacks.Find(s => s.StackID == id);
         }
 
-        public int UpdateStack(Models.Stack stack)
+        public int UpdateStack(Stack stack)
         {
-            throw new NotImplementedException();
+            int stackUpdated = 0;
+            if(DeleteStackById(stack.StackID) != null)
+            {
+                stacks.Add(stack);
+                stackUpdated = 1;
+            }
+
+            return stackUpdated;
         }
     }
 }
