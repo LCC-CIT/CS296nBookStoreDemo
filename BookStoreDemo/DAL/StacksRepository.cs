@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace BookStore.DAL
 {
-    public class StacksRepository : IDisposable
+    public class StacksRepository : IDisposable, IStacksRepository
     {
         BookStoreDemoContext db = new BookStoreDemoContext();
 
@@ -28,17 +27,18 @@ namespace BookStore.DAL
             return dbStack;
         }
 
-        public int UpdateStack(Stack stack)
+        public int UpdateStackById(Stack stack)
         {
             db.Entry(stack).State = EntityState.Modified;
-            return db.SaveChanges();
+            return db.SaveChanges();  // returns the number of objects saved
         }
 
-        public int DeleteStackById(int id)
+        public Stack DeleteStackById(int id)
         {
             Stack stack = GetStackById(id);
             db.Stacks.Remove(stack);
-            return db.SaveChanges();
+            db.SaveChanges();
+            return stack;
         }
 
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
 using BookStore.Models;
 using BookStore.DAL;
@@ -14,7 +8,20 @@ namespace BookStore.Controllers
     public class StacksController : Controller
     {
        // private BookStoreDemoContext db = new BookStoreDemoContext();
-        private StacksRepository repo = new StacksRepository();
+        private IStacksRepository repo;
+
+        public StacksController()
+        {
+            repo = new StacksRepository();
+        }
+
+        // Use this to pass in a fake repo when testing
+        public StacksController(IStacksRepository r)
+
+
+        {
+            repo = r;
+        }
 
         // GET: /Stacks/
         public ActionResult Index()
@@ -83,7 +90,7 @@ namespace BookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.UpdateStack(stack);
+                repo.UpdateStackById(stack);
                 return RedirectToAction("Index");
             }
             return View(stack);
