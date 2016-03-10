@@ -7,17 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BookStore.Models;
+using BookStore.DAL;
 
 namespace BookStore.Controllers
 {
     public class StacksController : Controller
     {
-        private BookStoreDemoContext db = new BookStoreDemoContext();
+       // private BookStoreDemoContext db = new BookStoreDemoContext();
+        private StacksRepository repo = new StacksRepository();
 
         // GET: /Stacks/
         public ActionResult Index()
         {
-            return View(db.Stacks.ToList());
+            return View(repo.GetAllStacks());
         }
 
         // GET: /Stacks/Details/5
@@ -27,7 +29,7 @@ namespace BookStore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Stack stack = db.Stacks.Find(id);
+            Stack stack = repo.GetStackById(id);
             if (stack == null)
             {
                 return HttpNotFound();
@@ -50,8 +52,7 @@ namespace BookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Stacks.Add(stack);
-                db.SaveChanges();
+                repo.AddStack(stack);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +66,7 @@ namespace BookStore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Stack stack = db.Stacks.Find(id);
+            Stack stack = repo.GetStackById(id);
             if (stack == null)
             {
                 return HttpNotFound();
@@ -82,8 +83,7 @@ namespace BookStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(stack).State = EntityState.Modified;
-                db.SaveChanges();
+                repo.UpdateStack(stack);
                 return RedirectToAction("Index");
             }
             return View(stack);
@@ -96,7 +96,7 @@ namespace BookStore.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Stack stack = db.Stacks.Find(id);
+            Stack stack = repo.GetStackById(id);
             if (stack == null)
             {
                 return HttpNotFound();
@@ -109,9 +109,7 @@ namespace BookStore.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Stack stack = db.Stacks.Find(id);
-            db.Stacks.Remove(stack);
-            db.SaveChanges();
+            repo.DeleteStackById(id);
             return RedirectToAction("Index");
         }
 
@@ -119,7 +117,7 @@ namespace BookStore.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                repo.Dispose();
             }
             base.Dispose(disposing);
         }
