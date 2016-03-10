@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BookStore.DAL
 {
-    public class StacksRepository : IDisposable
+    public class StacksRepository : IDisposable, IStacksRepository
     {
         BookStoreDemoContext db = new BookStoreDemoContext();
 

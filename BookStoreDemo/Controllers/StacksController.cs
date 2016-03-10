@@ -14,7 +14,17 @@ namespace BookStore.Controllers
     public class StacksController : Controller
     {
        // private BookStoreDemoContext db = new BookStoreDemoContext();
-        private StacksRepository repo = new StacksRepository();
+        private IStacksRepository repo;
+
+        public StacksController()
+        {
+            repo = new StacksRepository();
+        }
+
+        public StacksController(IStacksRepository s)
+        {
+            repo = s;
+        }
 
         // GET: /Stacks/
         public ActionResult Index()
